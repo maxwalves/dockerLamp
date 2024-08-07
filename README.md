@@ -19,7 +19,9 @@ php -m
 ```
 
 ### Caso precise reconstruir a imagem Docker para garantir que todas as alterações sejam aplicadas:
-```docker build -t web .```
+```
+docker build -t web .
+```
 
 ### Dentro do container Docker:
 ```
