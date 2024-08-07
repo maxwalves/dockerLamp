@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Se o Dockerfile não estiver no mesmo diretório, ajuste o caminho
+    container_name: web
+    ports:
+      - "81:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./apache/vhost.conf:/etc/apache2/sites-available/000-default.conf
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+    environment:
+      COMPOSER_HOME: /composer
+    networks:
+      - lamp
+
+  node:
+    image: node:latest
+    container_name: node
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - lamp
+    command: ["tail", "-f", "/dev/null"]  # Mantém o container em execução
+
+  composer:
+    image: composer:latest
+    container_name: composer
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - lamp
+    command: ["tail", "-f", "/dev/null"]  # Mantém o container em execução
+
+  git:
+    image: alpine/git
+    container_name: git
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - lamp
+
+networks:
+  lamp:
+    external: true
