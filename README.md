@@ -3,10 +3,14 @@ Exemplo de uso do docker compose para criação de um ambiente LAMP
 
 ### Inicie os containers:
 
-```docker-compose up -d```
+```
+docker-compose up -d
+```
 
 ### Pare e remova os containers existentes:
-```docker-compose down```
+```
+docker-compose down
+```
 
 ### Entre no container PHP e verifique se as extensões foram instaladas e habilitadas corretamente:
 ```
